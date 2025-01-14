@@ -1,11 +1,11 @@
-# K8s Event Generator
+# Qubership Kube Event Generator
 
 This document provides information for developers to start working with k8s-event-generator
 and implementing features and fixing issues.
 
 ## Table of Content
 
-* [K8s Event Generator](#k8s-event-generator)
+* [Qubership Kube Event Generator](#qubership-kube-event-generator)
   * [Table of Content](#table-of-content)
   * [Repository structure](#repository-structure)
   * [How to start](#how-to-start)
