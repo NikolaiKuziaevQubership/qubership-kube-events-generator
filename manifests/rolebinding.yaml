@@ -1,0 +1,15 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: kube-event-generator
+  labels:
+    app.kubernetes.io/name: kube-event-generator
+    app.kubernetes.io/component: kube-event-generator
+    app.kubernetes.io/part-of: logging
+subjects:
+- kind: ServiceAccount
+  name: kube-event-generator
+roleRef:
+  kind: Role
+  name: kube-event-generator
+  apiGroup: rbac.authorization.k8s.io
