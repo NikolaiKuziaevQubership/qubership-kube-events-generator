@@ -1,0 +1,19 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: kube-event-generator
+  labels:
+    app.kubernetes.io/name: kube-event-generator
+    app.kubernetes.io/component: kube-event-generator
+    app.kubernetes.io/part-of: logging
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - get
+      - list
+      - patch
+      - update
