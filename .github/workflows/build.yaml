@@ -9,16 +9,24 @@ on:
     branches:
       - '**'
 
+concurrency:
+  # On main/release, we don't want any jobs cancelled so the sha is used to name the group
+  # On PR branches, we cancel the job if new commits are pushed
+  # More info: https://stackoverflow.com/a/68422069/253468
+  group: ${{ github.ref == 'refs/heads/main' && format('ci-main-{0}', github.sha) || format('ci-main-{0}', github.ref) }}
+  cancel-in-progress: true
+
 jobs:
   multiplatform_build:
+    if: github.event.pull_request.user.login != 'dependabot[bot]' || github.event_name == 'pull_request'
     strategy:
       fail-fast: false
       matrix:
         component:
           - name: qubership-kube-events-generator
-            file: Dockerfile
-            context: ""
+            file: ./Dockerfile
     runs-on: ubuntu-latest
+    name: ${{ matrix.component.name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,9 +55,9 @@ jobs:
           no-cache: true
           context: ${{ matrix.component.context }}
           file: ${{ matrix.component.file }}
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           # See https://docs.github.com/en/code-security/dependabot/working-with-dependabot/automating-dependabot-with-github-actions#fetching-metadata-about-a-pull-request
-          push: ${{ github.event_name != 'pull_request' && github.event.pull_request.user.login != 'dependabot[bot]' }}
+          push: ${{ github.event_name != 'pull_request' && github.actor != 'dependabot[bot]' }}
           provenance: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
