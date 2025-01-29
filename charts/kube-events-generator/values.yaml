@@ -5,5 +5,4 @@ namespace: logging
 image:
   repository: ghcr.io/netcracker/qubership-kube-events-generator
   tag: main
-  pullSecrets: # kubernetes secret name. Only pods which provide own keys can access the private registry.
-    - name: regcred
+  pullSecrets: [] # kubernetes secret name. Only pods which provide own keys can access the private registry.
