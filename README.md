@@ -18,7 +18,7 @@ and implementing features and fixing issues.
 
 ## Repository structure
 
-* `./manifests` - kubernetes manifests for manual deploy
+* `./charts` - helm folder
 * `./main.go` - application entrypoint
 
 Files for build:
@@ -27,25 +27,20 @@ Files for build:
 
 ## How to start
 
-### Deploy
-
-This microservice can be deployed manually with `kubectl` or `oc` cli tool.
-
-1. Login to cloud and set context.
-
-2. Modify manifests. At least you need to set Docker image of the service.
-
-3. Run command to install k8s-event-generator:
-
-```bash
-kubectl apply -f ./manifests
-```
-
-To uninstall deployment you need to delete manually all the manifests.
-
 #### Deploy with helm
 
-Not applicable.
+This microservice can be deployed by helm. Use next command from service root folder:
+
+```bash
+helm install qubership-kube-events-generator --namespace=logging --create-namespace charts/kube-events-generator -f 
+<path_to_root_folder>/charts/kube-events-generator/values.yaml
+```
+
+To uninstall helm you need to delete it manually.
+
+```bash
+helm uninstall qubership-kube-events-generator
+```
 
 ### How to debug
 
