@@ -30,7 +30,7 @@ spec:
       {{- end }}
       containers:
         - name: {{ .Values.serviceName }}
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          image: {{ template "kube-events.image" . }}
           imagePullPolicy: IfNotPresent
           resources:
             limits:
